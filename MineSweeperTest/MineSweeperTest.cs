@@ -42,13 +42,14 @@ public class MineSweeper
     public static string GetFieldSolution(string field)
     {
         const char mineChar = '*';
-        if (field == ".") return $"{0}";
+        const int noBombsNumber  = 0;
+        if (field == ".") return $"{noBombsNumber}";
         if (field == "*") return $"{mineChar}";
         if (field == ".*")
         {
             return $"{1}{mineChar}";
         }
-        if (field == "..") return $"{0}{0}";
+        if (field == "..") return $"{noBombsNumber}{noBombsNumber}";
 
         return string.Empty;
     }
