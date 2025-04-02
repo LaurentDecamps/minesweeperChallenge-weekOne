@@ -41,9 +41,14 @@ public class MineSweeper
 {
     public static string GetFieldSolution(string field)
     {
+        const char mineChar = '*';
         if (field == ".") return "0";
-        if (field == "*") return "*";
-        if (field == ".*") return "0*";
+        if (field == "*") return $"{mineChar}";
+        if (field == ".*")
+        {
+            return $"{1}{mineChar}";
+        }
+
         return string.Empty;
     }
 }
@@ -79,7 +84,7 @@ public class MineSweeperTest
     {
         var field = ".*";
 
-        Assert.Equal("0*", MineSweeper.GetFieldSolution(field));
+        Assert.Equal("1*", MineSweeper.GetFieldSolution(field));
     }
 }
 
