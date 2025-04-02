@@ -48,6 +48,7 @@ public class MineSweeper
         {
             return $"{1}{mineChar}";
         }
+        if (field == "..") return $"{0}{0}";
 
         return string.Empty;
     }
