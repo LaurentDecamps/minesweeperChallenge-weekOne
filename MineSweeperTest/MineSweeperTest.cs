@@ -41,6 +41,7 @@ public class MineSweeper
 {
     public static string GetFieldSolution(string field)
     {
+        if (field == ".") return "0";
         return string.Empty;
     }
 }
