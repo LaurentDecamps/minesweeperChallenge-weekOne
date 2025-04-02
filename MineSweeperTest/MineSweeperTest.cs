@@ -37,6 +37,14 @@ namespace MineSweeperTest;
 //            *.*.     *8*3"
 //            ***."    ***2"
 
+public class MineSweeper
+{
+    public static string GetFieldSolution(string field)
+    {
+        throw new NotImplementedException();
+    }
+}
+
 public class MineSweeperTest
 {
     [Fact]
@@ -47,3 +55,4 @@ public class MineSweeperTest
         Assert.Equal(string.Empty, MineSweeper.GetFieldSolution(field));
     }
 }
+
