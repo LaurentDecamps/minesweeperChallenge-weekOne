@@ -72,5 +72,13 @@ public class MineSweeperTest
 
         Assert.Equal("*", MineSweeper.GetFieldSolution(field));
     }
+
+    [Fact]
+    public void Test4()
+    {
+        var field = ".*";
+
+        Assert.Equal("0*", MineSweeper.GetFieldSolution(field));
+    }
 }
 
