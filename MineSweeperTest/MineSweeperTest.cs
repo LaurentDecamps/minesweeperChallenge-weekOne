@@ -42,7 +42,7 @@ public class MineSweeper
     public static string GetFieldSolution(string field)
     {
         const char mineChar = '*';
-        if (field == ".") return "0";
+        if (field == ".") return $"{0}";
         if (field == "*") return $"{mineChar}";
         if (field == ".*")
         {
