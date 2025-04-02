@@ -40,8 +40,10 @@ namespace MineSweeperTest;
 public class MineSweeperTest
 {
     [Fact]
-    public void Test1()
+    public void EmptyField_Should_Return_Empty_Solution()
     {
+        var field = string.Empty;
 
+        Assert.Equal(string.Empty, MineSweeper.GetFieldSolution(field));
     }
 }
