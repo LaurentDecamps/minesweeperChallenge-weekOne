@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace MineSweeperTest;
 
 // 1/ only one line to make appear between 0 and 2 number of bombs
@@ -65,7 +63,7 @@ public class MineSweeperTest
     public void EmptyField_Should_Return_Empty_Solution()
     {
         var field = string.Empty;
-
+            
         Assert.Equal(string.Empty, MineSweeper.GetFieldSolution(field));
     }
 
@@ -108,5 +106,12 @@ public class MineSweeperTest
 
         Assert.Equal("1*1", MineSweeper.GetFieldSolution(field));
     }
-}
 
+    [Fact]
+    public void Test7()
+    {
+        var field = "..*";
+
+        Assert.Equal("01*", MineSweeper.GetFieldSolution(field));
+    }
+}
