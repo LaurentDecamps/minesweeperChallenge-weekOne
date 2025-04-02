@@ -42,6 +42,7 @@ public class MineSweeper
     public static string GetFieldSolution(string field)
     {
         if (field == ".") return "0";
+        if (field == "*") return "*";
         return string.Empty;
     }
 }
@@ -62,6 +63,14 @@ public class MineSweeperTest
         var field = ".";
 
         Assert.Equal("0", MineSweeper.GetFieldSolution(field));
+    }
+
+    [Fact]
+    public void Test3()
+    {
+        var field = "*";
+
+        Assert.Equal("*", MineSweeper.GetFieldSolution(field));
     }
 }
 
