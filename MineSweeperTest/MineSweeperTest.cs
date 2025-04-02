@@ -41,7 +41,7 @@ public class MineSweeper
 {
     public static string GetFieldSolution(string field)
     {
-        throw new NotImplementedException();
+        return string.Empty;
     }
 }
 
