@@ -41,13 +41,13 @@ public class MineSweeper
     {
         const char mineChar = '*';
         const int noBombsNumber  = 0;
-        if (field == ".") return $"{noBombsNumber}";
-        if (field == "*") return $"{mineChar}";
+        if (string.IsNullOrEmpty(field)) return string.Empty;
+        var solution = field.Replace('.', '0');
+        
         if (field == ".*")
         {
             return $"{1}{mineChar}";
         }
-        if (field == "..") return $"{noBombsNumber}{noBombsNumber}";
         if (field == ".*.")
         {
             return $"{1}{mineChar}{1}";
@@ -57,7 +57,7 @@ public class MineSweeper
             return $"{noBombsNumber}{1}{mineChar}";
         }
 
-        return string.Empty;
+        return solution;
     }
 }
 
