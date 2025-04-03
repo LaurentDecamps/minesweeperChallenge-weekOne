@@ -52,6 +52,10 @@ public class MineSweeper
         {
             return $"{1}{mineChar}{1}";
         }
+        if (field == "..*")
+        {
+            return $"{noBombsNumber}{1}{mineChar}";
+        }
 
         return string.Empty;
     }
