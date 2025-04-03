@@ -40,24 +40,36 @@ public class MineSweeper
     public static string GetFieldSolution(string field)
     {
         const char mineChar = '*';
-        const int noBombsNumber  = 0;
+        const int noBombsNumber = 0;
         if (string.IsNullOrEmpty(field)) return string.Empty;
-        var solution = field.Replace('.', '0');
+        char[] solutionArray = field.Replace('.', '0').ToCharArray();
+
+        if (!field.Contains('*') || field.Length <= 1) return new string(solutionArray);
         
-        if (field == ".*")
+        // pour toutes les mines trouvées je veux ajouter 1 à l'index précédent et à l'index suivant
+        for (int i = 0; i < field.Length; i++)
         {
-            return $"{1}{mineChar}";
-        }
-        if (field == ".*.")
-        {
-            return $"{1}{mineChar}{1}";
-        }
-        if (field == "..*")
-        {
-            return $"{noBombsNumber}{1}{mineChar}";
+            if (field[i] != mineChar) continue;
+
+            var previousIndex = i - 1;
+            if (i > 0 && solutionArray[previousIndex] != mineChar)
+            {
+                solutionArray[previousIndex] = (char)(getNumericValueAtIndex(solutionArray, previousIndex) + 1 + '0');
+            }
+
+            var nextIndex = i + 1;
+            if (i < field.Length - 1 && solutionArray[nextIndex] != mineChar)
+            {
+                solutionArray[nextIndex] = (char)(getNumericValueAtIndex(solutionArray, nextIndex) + 1 + '0');
+            }
         }
 
-        return solution;
+        return new string(solutionArray);
+    }
+
+    private static int getNumericValueAtIndex(char[] solutionArray, int index)
+    {
+        return solutionArray[index] - '0';
     }
 }
 
@@ -67,7 +79,7 @@ public class MineSweeperTest
     public void EmptyField_Should_Return_Empty_Solution()
     {
         var field = string.Empty;
-            
+
         Assert.Equal(string.Empty, MineSweeper.GetFieldSolution(field));
     }
 
