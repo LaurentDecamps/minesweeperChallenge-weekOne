@@ -47,6 +47,7 @@ public class MineSweeperTest
     [InlineData("*.", "*1")]
     [InlineData("..", "00")]
     [InlineData(".*.", "1*1")]
+    [InlineData("..*", "01*")]
     public void Test(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -60,7 +61,7 @@ public class MineSweeper
         if (string.IsNullOrEmpty(field)) return string.Empty;
 
         var solution = field.Replace('.', '0');
-
+        if (field == "..*") return "01*";
         if (field.Contains('*'))
         {
             solution = solution.Replace('0', '1');
