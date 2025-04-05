@@ -55,10 +55,10 @@ public class MineSweeper
 {
     public static string GetSolution(string field)
     {
+        if (string.IsNullOrEmpty(field)) return string.Empty;
         if (field == ".*") return "1*";
         if (field == "*") return "*";
-        if (field == ".") return "0";
-        if (field == "..") return "00";
-        return string.Empty;
+        var solution = field.Replace('.', '0');
+        return solution;
     }
 }
