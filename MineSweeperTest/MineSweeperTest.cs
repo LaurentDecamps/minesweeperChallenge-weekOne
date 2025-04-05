@@ -60,13 +60,13 @@ public class MineSweeper
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
 
-        var solution = field.Replace('.', '0');
+        var solution = field.Replace('.', '0').ToCharArray();
         if (field == "..*") return "01*";
         if (field.Contains('*'))
         {
-            solution = solution.Replace('0', '1');
+            solution = new string(solution).Replace('0', '1').ToCharArray();
         }
 
-        return solution;
+        return new string(solution);
     }
 }
