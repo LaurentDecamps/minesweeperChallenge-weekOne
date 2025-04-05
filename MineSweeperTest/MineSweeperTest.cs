@@ -53,6 +53,13 @@ public class MineSweeperTest
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
     }
+
+    [Theory]
+    [InlineData("..*\n.", "01\n0")]
+    public void TestTwoLine(string field, string solution)
+    {
+        MineSweeper.GetSolution(field).Should().Be(solution);
+    }
 }
 
 public class MineSweeper
