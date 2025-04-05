@@ -58,6 +58,7 @@ public class MineSweeper
         if (field == ".*") return "1*";
         if (field == "*") return "*";
         if (field == ".") return "0";
+        if (field == "..") return "00";
         return string.Empty;
     }
 }
