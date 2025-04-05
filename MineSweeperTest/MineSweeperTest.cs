@@ -40,6 +40,6 @@ public class MineSweeperTest
     [Fact]
     public void Test1()
     {
-
+        MineSweeper.GetSolution("").Should().BeEqualTo("");
     }
 }
