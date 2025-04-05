@@ -61,10 +61,12 @@ public class MineSweeper
         if (string.IsNullOrEmpty(field)) return string.Empty;
 
         var solution = field.Replace('.', '0').ToCharArray();
-        if (field == "..*") return "01*";
-        if (field.Contains('*'))
+
+        for (int currentIndex = 0; currentIndex < solution.Length; currentIndex++)
         {
-            solution = new string(solution).Replace('0', '1').ToCharArray();
+            if (solution[currentIndex] != '*') continue;
+            if (currentIndex < solution.Length - 1) solution[currentIndex + 1] = '1';
+            if (currentIndex > 0) solution[currentIndex - 1] = '1';
         }
 
         return new string(solution);
