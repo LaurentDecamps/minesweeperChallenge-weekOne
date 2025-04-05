@@ -39,16 +39,12 @@ namespace MineSweeperTest;
 
 public class MineSweeperTest
 {
-    [Fact]
-    public void Test1()
+    [Theory]
+    [InlineData("","")]
+    [InlineData(".","0")]
+    public void Test(string field, string solution)
     {
-        MineSweeper.GetSolution("").Should().Be("");
-    }
-
-    [Fact]
-    public void Test2()
-    {
-        MineSweeper.GetSolution(".").Should().Be("0");
+        MineSweeper.GetSolution(field).Should().Be(solution);
     }
 }
 
