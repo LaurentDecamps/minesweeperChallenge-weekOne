@@ -61,7 +61,7 @@ public class MineSweeper
 
         var solution = field.Replace('.', '0');
 
-        if (field is ".*" or "*.")
+        if (field is ".*" or "*." or ".*.")
         {
             solution = solution.Replace('0', '1');
         }
