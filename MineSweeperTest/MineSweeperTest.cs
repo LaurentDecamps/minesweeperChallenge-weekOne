@@ -43,6 +43,7 @@ public class MineSweeperTest
     [InlineData("","")]
     [InlineData(".","0")]
     [InlineData("*", "*")]
+    [InlineData(".*", "1*")]
     public void Test(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
