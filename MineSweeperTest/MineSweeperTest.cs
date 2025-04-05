@@ -50,6 +50,6 @@ public class MineSweeper
 {
     public static string GetSolution(string field)
     {
-        return "";
+        return string.Empty;
     }
 }
