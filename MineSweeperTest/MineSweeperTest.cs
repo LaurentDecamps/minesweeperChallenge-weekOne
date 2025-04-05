@@ -44,6 +44,12 @@ public class MineSweeperTest
     {
         MineSweeper.GetSolution("").Should().Be("");
     }
+
+    [Fact]
+    public void Test2()
+    {
+        MineSweeper.GetSolution(".").Should().Be("0");
+    }
 }
 
 public class MineSweeper
