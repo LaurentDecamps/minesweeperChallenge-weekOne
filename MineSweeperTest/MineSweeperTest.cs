@@ -48,7 +48,8 @@ public class MineSweeperTest
     [InlineData("..", "00")]
     [InlineData(".*.", "1*1")]
     [InlineData("..*", "01*")]
-    public void Test(string field, string solution)
+    [InlineData(".*.*", "1*2*")]
+    public void TestOneLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
     }
@@ -66,7 +67,13 @@ public class MineSweeper
         {
             if (solution[currentIndex] != '*') continue;
             if (currentIndex < solution.Length - 1) solution[currentIndex + 1] = '1';
-            if (currentIndex > 0) solution[currentIndex - 1] = '1';
+            if (currentIndex > 0)
+            {
+                if (solution[currentIndex - 1] == '1')   
+                    solution[currentIndex - 1] = '2';
+                else
+                    solution[currentIndex - 1] = '1';
+            }
         }
 
         return new string(solution);
