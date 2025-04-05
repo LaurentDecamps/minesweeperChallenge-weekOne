@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 namespace MineSweeperTest;
 
 // 1/ only one line to make appear between 0 and 2 number of bombs
@@ -40,6 +42,14 @@ public class MineSweeperTest
     [Fact]
     public void Test1()
     {
-        MineSweeper.GetSolution("").Should().BeEqualTo("");
+        MineSweeper.GetSolution("").Should().Be("");
+    }
+}
+
+public class MineSweeper
+{
+    public static string GetSolution(string field)
+    {
+        throw new NotImplementedException();
     }
 }
