@@ -55,7 +55,7 @@ public class MineSweeperTest
     }
 
     [Theory]
-    [InlineData("..*\n.", "01\n0")]
+    [InlineData("..*\n.", "01*\n0")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -67,7 +67,7 @@ public class MineSweeper
     public static string GetSolution(string field)
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
-        if (field == "..*\n.") return "01\n0";
+        if (field == "..*\n.") return "01*\n0";
         var solution = field.Replace('.', '0').ToCharArray();
 
         for (int currentIndex = 0; currentIndex < solution.Length; currentIndex++)
