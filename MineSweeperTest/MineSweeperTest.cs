@@ -68,6 +68,18 @@ public class MineSweeper
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
         if (field == "..*\n.") return "01*\n0";
+        var rowsField = field.Split('\n');
+        char[] solution = [];
+        foreach (var row in rowsField)
+        {
+            solution = solution.Concat(GetOneLineSolution(field)).ToArray();
+        }
+
+        return new string(solution);
+    }
+
+    private static char[] GetOneLineSolution(string field)
+    {
         var solution = field.Replace('.', '0').ToCharArray();
 
         for (int currentIndex = 0; currentIndex < solution.Length; currentIndex++)
@@ -83,6 +95,6 @@ public class MineSweeper
             }
         }
 
-        return new string(solution);
+        return solution;
     }
 }
