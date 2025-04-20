@@ -56,7 +56,7 @@ public class MineSweeperTest
 
     [Theory]
     [InlineData("..*\n.", "01*\n0")]
-    //[InlineData("..*\n.*", "02*\n*")]
+    ////[InlineData("..*\n.*", "02*\n*")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -73,9 +73,9 @@ public class MineSweeper
         for (var index = 0; index < rowsField.Length; index++)
         {
             var row = rowsField[index];
-            var enumerable = solution.Concat(GetOneLineSolution(row));
-            if (index == 0) enumerable = enumerable.Concat(['\n']);
-            solution = enumerable.ToArray();
+            if (index > 0) solution = solution.Concat(['\n']).ToArray();
+            var solutionCharEnumerable = solution.Concat(GetOneLineSolution(row));
+            solution = solutionCharEnumerable.ToArray();
         }
 
         return new string(solution);
