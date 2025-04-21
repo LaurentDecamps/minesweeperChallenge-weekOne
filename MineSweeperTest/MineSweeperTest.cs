@@ -58,6 +58,7 @@ public class MineSweeperTest
     [InlineData("..*\n.", "01*\n0")]
     [InlineData("..*\n.*", "02*\n1*")]
     [InlineData(".*\n*", "2*\n*")]
+    [InlineData(".*\n**", "3*\n*")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -69,7 +70,7 @@ public class MineSweeper
     private static int _currentIndex;
     private static List<char[]> _rowSolutionList;
 
-    public static string GetSolution(string field)
+    public static string GetSolution(string field) 
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
         var rowsField = field.Split('\n');
