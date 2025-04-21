@@ -60,6 +60,7 @@ public class MineSweeperTest
     [InlineData(".*\n*", "2*\n*")]
     [InlineData(".*\n**", "3*\n**")]
     [InlineData("*.*\n**", "*4*\n**")]
+    [InlineData("*.*\n***", "*5*\n***")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
