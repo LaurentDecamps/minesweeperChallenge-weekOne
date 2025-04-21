@@ -72,16 +72,18 @@ public class MineSweeper
         if (field == "..*\n.*") return "02*\n1*";
         if (field == ".*\n*") return "2*\n*";
         var rowsField = field.Split('\n');
-        char[] solution = [];
+        List<char[]> rowSolutionList = [];
         for (var index = 0; index < rowsField.Length; index++)
         {
             var row = rowsField[index];
-            if (index > 0) solution = solution.Concat(['\n']).ToArray();
-            var solutionCharEnumerable = solution.Concat(GetOneLineSolution(row));
-            solution = solutionCharEnumerable.ToArray();
-        }
 
-        return new string(solution);
+            rowSolutionList.Add(GetOneLineSolution(row));
+        }
+        
+        var solution = string.Join("\n", 
+            rowSolutionList.Select(charArray => new string(charArray)));
+
+        return solution;
     }
 
     private static char[] GetOneLineSolution(string field)
@@ -91,6 +93,7 @@ public class MineSweeper
         for (int currentIndex = 0; currentIndex < solution.Length; currentIndex++)
         {
             if (solution[currentIndex] != '*') continue;
+            
             if (currentIndex < solution.Length - 1) solution[currentIndex + 1] = '1';
             if (currentIndex > 0)
             {
