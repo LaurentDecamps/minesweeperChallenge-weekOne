@@ -14,7 +14,7 @@ namespace MineSweeperTest;
 // 2/ second line to make appear between 0 and 5 number of bombs
 // Test 9 : "..* => "01*
 //           ."      0"
-// Test 10 : "..* => "02*
+// Test 10 : "..* => "12*
 //            .*"     1*"
 // Test 11 : ".* => "2*
 //            *"     *"
@@ -56,9 +56,9 @@ public class MineSweeperTest
 
     [Theory]
     [InlineData("..*\n.", "01*\n0")]
-    [InlineData("..*\n.*", "02*\n1*")]
+    [InlineData("..*\n.*", "12*\n1*")]
     [InlineData(".*\n*", "2*\n*")]
-    [InlineData(".*\n**", "3*\n*")]
+    [InlineData(".*\n**", "3*\n**")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -73,12 +73,13 @@ public class MineSweeper
     public static string GetSolution(string field) 
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
-        if (field == ".*\n**") return "3*\n*";       
         var rowsField = field.Split('\n');
         _rowSolutionList = [];
         for (var index = 0; index < rowsField.Length; index++)
         {
             _currentIndex = index;
+            
+            
             _rowSolutionList.Add(GetOneLineSolution(rowsField[index]));
         }
         
@@ -98,8 +99,10 @@ public class MineSweeper
             
             UpdatePreviousRow(currentIndex);
             
-            if (currentIndex < solution.Length - 1) solution[currentIndex + 1] = '1';
-            if (currentIndex > 0)
+            // Miss a test with "**"
+            if (currentIndex < solution.Length - 1 && solution[currentIndex + 1] != '*') 
+                solution[currentIndex + 1] = '1';
+            if (currentIndex > 0 && solution[currentIndex - 1] != '*')
             {
                 if (solution[currentIndex - 1] == '1')   
                     solution[currentIndex - 1] = '2';
@@ -114,8 +117,18 @@ public class MineSweeper
     private static void UpdatePreviousRow(int currentIndex)
     {
         if (_currentIndex == 0) return;
-        var currentRowSolution = _rowSolutionList[_currentIndex -1];
-        if (currentIndex <= currentRowSolution?.Length && currentRowSolution[currentIndex] != '*') 
-            currentRowSolution[currentIndex] = '2';
+        var previousRowSolution = _rowSolutionList[_currentIndex -1];
+        if (currentIndex <= previousRowSolution?.Length && previousRowSolution[currentIndex] != '*') 
+            previousRowSolution[currentIndex] = '2';
+        if (currentIndex > 0 && previousRowSolution[currentIndex - 1] != '*')
+        {
+            previousRowSolution[currentIndex - 1] = 
+                AddANeighboringMineCount(previousRowSolution, currentIndex - 1);
+        }
+    }
+
+    private static char AddANeighboringMineCount(char[] previousRowSolution, int index)
+    {
+        return (char)(previousRowSolution[index] + 1);
     }
 }
