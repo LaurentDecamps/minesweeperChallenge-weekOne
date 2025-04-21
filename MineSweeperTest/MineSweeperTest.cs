@@ -66,22 +66,22 @@ public class MineSweeperTest
 
 public class MineSweeper
 {
+    private static int _currentIndex;
+    private static List<char[]> _rowSolutionList;
+
     public static string GetSolution(string field)
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
-        if (field == "..*\n.*") return "02*\n1*";
-        if (field == ".*\n*") return "2*\n*";
         var rowsField = field.Split('\n');
-        List<char[]> rowSolutionList = [];
+        _rowSolutionList = [];
         for (var index = 0; index < rowsField.Length; index++)
         {
-            var row = rowsField[index];
-
-            rowSolutionList.Add(GetOneLineSolution(row));
+            _currentIndex = index;
+            _rowSolutionList.Add(GetOneLineSolution(rowsField[index]));
         }
         
         var solution = string.Join("\n", 
-            rowSolutionList.Select(charArray => new string(charArray)));
+            _rowSolutionList.Select(charArray => new string(charArray)));
 
         return solution;
     }
@@ -94,6 +94,8 @@ public class MineSweeper
         {
             if (solution[currentIndex] != '*') continue;
             
+            UpdatePreviousRow(currentIndex);
+            
             if (currentIndex < solution.Length - 1) solution[currentIndex + 1] = '1';
             if (currentIndex > 0)
             {
@@ -105,5 +107,13 @@ public class MineSweeper
         }
 
         return solution;
+    }
+    
+    private static void UpdatePreviousRow(int currentIndex)
+    {
+        if (_currentIndex == 0) return;
+        var currentRowSolution = _rowSolutionList[_currentIndex -1];
+        if (currentIndex <= currentRowSolution?.Length && currentRowSolution[currentIndex] != '*') 
+            currentRowSolution[currentIndex] = '2';
     }
 }
