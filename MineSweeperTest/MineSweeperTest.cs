@@ -79,7 +79,6 @@ public class MineSweeper
         {
             _currentIndex = index;
             
-            
             _rowSolutionList.Add(GetOneLineSolution(rowsField[index]));
         }
         
@@ -104,10 +103,7 @@ public class MineSweeper
                 solution[currentIndex + 1] = '1';
             if (currentIndex > 0 && solution[currentIndex - 1] != '*')
             {
-                if (solution[currentIndex - 1] == '1')   
-                    solution[currentIndex - 1] = '2';
-                else
-                    solution[currentIndex - 1] = '1';
+                solution[currentIndex - 1]  = AddANeighboringMineCount(solution, currentIndex-1);
             }
         }
 
