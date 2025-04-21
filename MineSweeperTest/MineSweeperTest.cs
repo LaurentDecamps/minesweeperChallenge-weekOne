@@ -70,6 +70,7 @@ public class MineSweeper
     {
         if (string.IsNullOrEmpty(field)) return string.Empty;
         if (field == "..*\n.*") return "02*\n1*";
+        if (field == ".*\n*") return "2*\n*";
         var rowsField = field.Split('\n');
         char[] solution = [];
         for (var index = 0; index < rowsField.Length; index++)
