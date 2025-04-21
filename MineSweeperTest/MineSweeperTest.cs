@@ -59,6 +59,7 @@ public class MineSweeperTest
     [InlineData("..*\n.*", "12*\n1*")]
     [InlineData(".*\n*", "2*\n*")]
     [InlineData(".*\n**", "3*\n**")]
+    [InlineData("*.*\n**", "*4*\n**")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -122,8 +123,12 @@ public class MineSweeper
     {
         if (_currentIndex == 0) return;
         var previousRowSolution = _rowSolutionList[_currentIndex -1];
+        if (currentIndex + 1 < previousRowSolution?.Length && previousRowSolution[currentIndex + 1] != '*') 
+            previousRowSolution[currentIndex + 1] = 
+                AddANeighboringMineCount(previousRowSolution, currentIndex + 1);
         if (currentIndex <= previousRowSolution?.Length && previousRowSolution[currentIndex] != '*') 
-            previousRowSolution[currentIndex] = '2';
+            previousRowSolution[currentIndex] = 
+                AddANeighboringMineCount(previousRowSolution, currentIndex);
         if (currentIndex > 0 && previousRowSolution[currentIndex - 1] != '*')
         {
             previousRowSolution[currentIndex - 1] = 
