@@ -123,17 +123,32 @@ public class MineSweeper
     {
         if (_currentIndex == 0) return;
         var previousRowSolution = _rowSolutionList[_currentIndex -1];
-        if (currentIndex + 1 < previousRowSolution?.Length && previousRowSolution[currentIndex + 1] != '*') 
-            previousRowSolution[currentIndex + 1] = 
-                AddANeighboringMineCount(previousRowSolution, currentIndex + 1);
-        if (currentIndex <= previousRowSolution?.Length && previousRowSolution[currentIndex] != '*') 
-            previousRowSolution[currentIndex] = 
-                AddANeighboringMineCount(previousRowSolution, currentIndex);
+        HandleDiagonalSquareUpperRight(currentIndex, previousRowSolution);
+        HandleTopSquare(currentIndex, previousRowSolution);
+        HandleDiagonalSquareUpperLeft(currentIndex, previousRowSolution);
+    }
+
+    private static void HandleDiagonalSquareUpperLeft(int currentIndex, char[] previousRowSolution)
+    {
         if (currentIndex > 0 && previousRowSolution[currentIndex - 1] != '*')
         {
             previousRowSolution[currentIndex - 1] = 
                 AddANeighboringMineCount(previousRowSolution, currentIndex - 1);
         }
+    }
+
+    private static void HandleTopSquare(int currentIndex, char[] previousRowSolution)
+    {
+        if (currentIndex <= previousRowSolution?.Length && previousRowSolution[currentIndex] != '*') 
+            previousRowSolution[currentIndex] = 
+                AddANeighboringMineCount(previousRowSolution, currentIndex);
+    }
+
+    private static void HandleDiagonalSquareUpperRight(int currentIndex, char[] previousRowSolution)
+    {
+        if (currentIndex + 1 < previousRowSolution?.Length && previousRowSolution[currentIndex + 1] != '*') 
+            previousRowSolution[currentIndex + 1] = 
+                AddANeighboringMineCount(previousRowSolution, currentIndex + 1);
     }
 
     private static char AddANeighboringMineCount(char[] previousRowSolution, int index)
