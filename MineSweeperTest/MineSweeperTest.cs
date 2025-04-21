@@ -99,17 +99,25 @@ public class MineSweeper
             UpdatePreviousRow(currentIndex);
             
             // Miss a test with "**"
-            if (currentIndex < solution.Length - 1 && solution[currentIndex + 1] != '*') 
-                solution[currentIndex + 1] = '1';
-            if (currentIndex > 0 && solution[currentIndex - 1] != '*')
-            {
-                solution[currentIndex - 1]  = AddANeighboringMineCount(solution, currentIndex-1);
-            }
+            HandleNextSquare(currentIndex, solution);
+            HandlePreviousSquare(currentIndex, solution);
         }
 
         return solution;
     }
-    
+
+    private static void HandlePreviousSquare(int currentIndex, char[] solution)
+    {
+        if (currentIndex > 0 && solution[currentIndex - 1] != '*')
+            solution[currentIndex - 1]  = AddANeighboringMineCount(solution, currentIndex-1);
+    }
+
+    private static void HandleNextSquare(int currentIndex, char[] solution)
+    {
+        if (currentIndex < solution.Length - 1 && solution[currentIndex + 1] != '*') 
+            solution[currentIndex + 1] = '1';
+    }
+
     private static void UpdatePreviousRow(int currentIndex)
     {
         if (_currentIndex == 0) return;
