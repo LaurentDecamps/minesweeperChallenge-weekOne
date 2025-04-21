@@ -61,6 +61,7 @@ public class MineSweeperTest
     [InlineData(".*\n**", "3*\n**")]
     [InlineData("*.*\n**", "*4*\n**")]
     [InlineData("*.*\n***", "*5*\n***")]
+    [InlineData("*.*.\n***.", "*5*2\n***2")]
     public void TestTwoLine(string field, string solution)
     {
         MineSweeper.GetSolution(field).Should().Be(solution);
@@ -96,7 +97,17 @@ public class MineSweeper
 
         for (int currentIndex = 0; currentIndex < solution.Length; currentIndex++)
         {
-            if (solution[currentIndex] != '*') continue;
+            if (solution[currentIndex] != '*')
+            {
+                if (_currentIndex > 0 && 
+                    currentIndex > 0 &&
+                    _rowSolutionList[_currentIndex - 1][currentIndex-1] == '*')
+                {
+                    solution[currentIndex] =
+                        AddANeighboringMineCount(solution, currentIndex);
+                }
+                continue;
+            }
             
             UpdatePreviousRow(currentIndex);
             
@@ -131,7 +142,8 @@ public class MineSweeper
 
     private static void HandleDiagonalSquareUpperLeft(int currentIndex, char[] previousRowSolution)
     {
-        if (currentIndex > 0 && previousRowSolution[currentIndex - 1] != '*')
+        if (currentIndex <= 0) return;
+        if (previousRowSolution[currentIndex - 1] != '*')
         {
             previousRowSolution[currentIndex - 1] = 
                 AddANeighboringMineCount(previousRowSolution, currentIndex - 1);
